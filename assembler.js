@@ -43,6 +43,7 @@ function SimulatorWidget(node) {
         simulator.stopDebugger();
       }
     });
+    $node.find('.monitoring').attr('checked', false);
     $node.find('.monitoring').change(function () {
       ui.toggleMonitor();
       simulator.toggleMonitor();
@@ -1556,7 +1557,7 @@ function SimulatorWidget(node) {
         var start = parseInt($node.find('.start').val(), 16);
         var length = parseInt($node.find('.length').val(), 16);
         if (start >= 0 && length > 0) {
-          $node.find('.monitor code').html(memory.format(start, length));
+          $node.find('.monitor code').html(memory.format(start, length+1));
         }
       }
     }
