@@ -50,42 +50,6 @@
   color: #444;
 }
 
-/*
-.monitorControls {
-  width: 587px;
-  clear: both;
-  margin-bottom: 10px;
-  padding: 0;
-}
-
-.monitorControls input {
-  margin-right: 0.5em;
-}
-
-.widget {
-  width: 600px;
-  margin: 30px auto;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.buttons {
-  margin: 8px 0;
-}
-
-.start, .length {
-  width: 50px;
-}
-
-.widget pre {
-  margin: 0;
-  padding: 0;
-  background: inherit;
-  border: none;
-}
-
 .screen {
-  float: right;
+  padding: 10px;
 }
-*/
-
