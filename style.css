@@ -11,7 +11,7 @@
 
 .debugger {
   border: 1px black solid;
-  margin-top: 6px;
+  margin-top: 80px;
   padding: 3px;
   padding-top: 8px;
   width: 152px;
@@ -53,3 +53,4 @@
 .screen {
   padding: 10px;
 }
+
