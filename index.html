@@ -1,75 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <title>6502 Assembler/Simulator</title>
-    <script src="es5-shim.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="assembler.js"></script>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <title>6502 Assembler/Simulator</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="es5-shim.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="assembler.js"></script>
+</head>
+<body>
+  <div class="container-fluid widget">
+    <div class="row">
+      <div class="col">
+        <h5>Code Editor</h5>
+        <textarea class="code"></textarea>
 
-    <div class="widget">
-      <div class="buttons">
-        <input type="button" value="Assemble" class="assembleButton" />
-        <input type="button" value="Run" class="runButton" />
-        <input type="button" value="Reset" class="resetButton" />
-        <input type="button" value="Hexdump" class="hexdumpButton" />
-        <input type="button" value="Disassemble" class="disassembleButton" />
-        <input type="button" value="Notes" class="notesButton" />
-      </div>
-
-      <textarea class="code"></textarea>
-
-      <canvas class="screen" width="160" height="160"></canvas>
-
-      <div class="debugger">
-        <input type="checkbox" class="debug" name="debug" />
-        <label for="debug">Debugger</label>
-        <div class="minidebugger"></div>
         <div class="buttons">
-          <input type="button" value="Step" class="stepButton" />
-          <input type="button" value="Jump to ..." class="gotoButton" />
+          <input type="button" value="Assemble" class="assembleButton" />
+          <input type="button" value="Run" class="runButton" />
+          <input type="button" value="Reset" class="resetButton" />
+          <input type="button" value="Hexdump" class="hexdumpButton" />
+          <input type="button" value="Disassemble" class="disassembleButton" />
         </div>
       </div>
-
-      <div class="monitorControls">
-        <label for="monitoring">Monitor</label>
-        <input type="checkbox" class="monitoring" name="monitoring" />
-
-        <label for="start">Start: $</label>
-        <input type="text" value="0" class="start" name="start" />
-        <label for="length">Length: $</label>
-        <input type="text" value="ff" class="length" name="length" />
+      <div class="col-auto"">
+        <div class="debugger">
+          <div class="minidebugger"></div>
+          <div class="buttons">
+            <input type="button" value="Step" class="stepButton" />
+            <input type="button" value="Jump to ..." class="gotoButton" />
+          </div>
+        </div>
       </div>
-      <div class="monitor"><pre><code></code></pre></div>
-      <div class="messages"><pre><code></code></pre></div>
-
-      <div class="notes" style="display: none">Notes:
-
-Memory location $fe contains a new random byte on every instruction.
+      <div class="col-auto">
+        <canvas class="screen" width="320" height="320"></canvas>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-auto">
+        <h5>Message Log:</h5>
+        <div class="messages"><pre><code>Press Assemble button to build program</code></pre></div>
+        <h5>Memory Monitor:</h5>
+        <label>Start: $</label>
+        <input class="start" value="0000"/>
+        <label>End: $</label>
+        <input class="length" value="05ff"/>
+        <div class="monitor"><pre><code></code></pre></div>
+      </div>
+      <div class="col">
+          Notes:
+<pre><code>Memory location $fe contains a new random byte on every instruction.
 Memory location $ff contains the ascii code of the last key pressed.
 
 Memory locations $200 to $5ff map to the screen pixels. Different values will
-draw different colour pixels. The colours are:
-
-$0: Black
-$1: White
-$2: Red
-$3: Cyan
-$4: Purple
-$5: Green
-$6: Blue
-$7: Yellow
-$8: Orange
-$9: Brown
-$a: Light red
-$b: Dark grey
-$c: Grey
-$d: Light green
-$e: Light blue
-$f: Light grey
+draw different color pixels. The colors are:</code></pre>
+            <table class="table">
+              <tr>
+                <td style="background:#000000;color:#ffffff;">$0: Black</td>
+                <td style="background:#ffffff;color:#000000;">$1: White</td>
+                <td style="background:#880000;color:#ffffff;">$2: Red</td>
+                <td style="background:#aaffee;color:#000000;">$3: Cyan</td>
+              </tr>
+              <tr>
+                <td style="background:#cc44cc;color:#ffffff;">$4: Purple</td>
+                <td style="background:#00cc55;color:#ffffff;">$5: Green</td>
+                <td style="background:#0000aa;color:#ffffff;">$6: Blue</td>
+                <td style="background:#eeee77;color:#000000;">$7: Yellow</td>
+              </tr>
+              <tr>
+                <td style="background:#dd8855;color:#ffffff;">$8: Orange</td>
+                <td style="background:#664400;color:#ffffff;">$9: Brown</td>
+                <td style="background:#ff7777;color:#000000;">$a: Light red</td>
+                <td style="background:#333333;color:#ffffff;">$b: Dark grey</td>
+              </tr>
+              <tr>
+                <td style="background:#777777;color:#ffffff;">$c: Grey</td>
+                <td style="background:#aaff66;color:#000000;">$d: Light green</td>
+                <td style="background:#0088ff;color:#ffffff;">$e: Light blue</td>
+                <td style="background:#bbbbbb;color:#000000;">$f: Light grey</td>
+              </tr>
+            </table>
+          </div>
     </div>
-
-  </body>
+  </div>
+</body>
 </html>
+

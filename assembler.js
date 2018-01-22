@@ -5,6 +5,9 @@
 *  Adapted by Nick Morgan
 *  https://github.com/skilldrick/6502js
 *
+*  Additional modification by Kenneth Wilke
+*  https://github.com/KennethWilke/6502js
+*
 *  Released under the GNU General Public License
 *  see http://gnu.org/licenses/gpl.html
 */
@@ -33,6 +36,7 @@ function SimulatorWidget(node) {
     $node.find('.resetButton').click(simulator.reset);
     $node.find('.hexdumpButton').click(assembler.hexdump);
     $node.find('.disassembleButton').click(assembler.disassemble);
+    /*
     $node.find('.debug').change(function () {
       var debug = $(this).is(':checked');
       if (debug) {
@@ -43,11 +47,8 @@ function SimulatorWidget(node) {
         simulator.stopDebugger();
       }
     });
-    $node.find('.monitoring').attr('checked', false);
-    $node.find('.monitoring').change(function () {
-      ui.toggleMonitor();
-      simulator.toggleMonitor();
-    });
+    */
+
     $node.find('.stepButton').click(simulator.debugExec);
     $node.find('.gotoButton').click(simulator.gotoAddr);
     $node.find('.notesButton').click(ui.showNotes);
@@ -115,10 +116,12 @@ function SimulatorWidget(node) {
       $node.find('.resetButton').attr('disabled', !state.reset);
       $node.find('.hexdumpButton').attr('disabled', !state.hexdump);
       $node.find('.disassembleButton').attr('disabled', !state.disassemble);
+      /*
       $node.find('.debug').attr('disabled', !state.debug[0]);
       $node.find('.debug').attr('checked', state.debug[1]);
       $node.find('.stepButton').attr('disabled', !state.debug[1]);
       $node.find('.gotoButton').attr('disabled', !state.debug[1]);
+      */
       currentState = state;
     }
 
@@ -134,21 +137,27 @@ function SimulatorWidget(node) {
       setState(assembled);
     }
 
+    /*
     function debugOn() {
       setState(debugging);
     }
+    */
 
+    /*
     function debugOff() {
       setState(postDebugging);
     }
+    */
 
     function assembleSuccess() {
       setState(assembled);
     }
 
+    /*
     function toggleMonitor() {
       $node.find('.monitor').toggle();
     }
+    */
 
     function showNotes() {
       $node.find('.messages code').html($node.find('.notes').html());
@@ -159,9 +168,11 @@ function SimulatorWidget(node) {
       play: play,
       stop: stop,
       assembleSuccess: assembleSuccess,
+      /*
       debugOn: debugOn,
       debugOff: debugOff,
       toggleMonitor: toggleMonitor,
+      */
       showNotes: showNotes
     };
   }
@@ -276,8 +287,10 @@ function SimulatorWidget(node) {
     var regPC = 0x600;
     var regSP = 0xff;
     var codeRunning = false;
+    /*
     var debug = false;
     var monitoring = false;
+    */
     var executeId;
 
     //set zero and negative processor flags based on result
@@ -1508,13 +1521,13 @@ function SimulatorWidget(node) {
     }
 
     function multiExecute() {
-      if (!debug) {
+      //if (!debug) {
         // use a prime number of iterations to avoid aliasing effects
 
         for (var w = 0; w < 97; w++) {
           execute();
         }
-      }
+      //}
       updateDebugInfo();
     }
 
@@ -1553,13 +1566,14 @@ function SimulatorWidget(node) {
     }
 
     function updateMonitor() {
-      if (monitoring) {
+      //if (monitoring) {
+        console.log('mon!');
         var start = parseInt($node.find('.start').val(), 16);
         var length = parseInt($node.find('.length').val(), 16);
         if (start >= 0 && length > 0) {
           $node.find('.monitor code').html(memory.format(start, length+1));
         }
-      }
+      //}
     }
 
     // debugExec() - Execute one instruction and print values
@@ -1635,9 +1649,11 @@ function SimulatorWidget(node) {
       clearInterval(executeId);
     }
 
+    /*
     function toggleMonitor() {
       monitoring = !monitoring;
     }
+    */
 
     return {
       runBinary: runBinary,
@@ -1646,8 +1662,8 @@ function SimulatorWidget(node) {
       debugExec: debugExec,
       gotoAddr: gotoAddr,
       reset: reset,
-      stop: stop,
-      toggleMonitor: toggleMonitor
+      stop: stop/*,
+      toggleMonitor: toggleMonitor*/
     };
   }
 
@@ -2492,3 +2508,4 @@ $(document).ready(function () {
     SimulatorWidget(this);
   });
 });
+
