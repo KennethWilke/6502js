@@ -15,16 +15,18 @@
   <div class="container-fluid widget">
     <div class="row">
       <div class="col">
-        <h5>Code Editor</h5>
-        <textarea class="code"></textarea>
+        <fieldset>
+        <legend>Code Editor</legend>
+          <textarea class="code"></textarea>
 
-        <div class="buttons">
-          <input type="button" value="Assemble" class="assembleButton" />
-          <input type="button" value="Run" class="runButton" />
-          <input type="button" value="Reset" class="resetButton" />
-          <input type="button" value="Hexdump" class="hexdumpButton" />
-          <input type="button" value="Disassemble" class="disassembleButton" />
-        </div>
+          <div class="buttons">
+            <input type="button" value="Assemble" class="assembleButton" />
+            <input type="button" value="Run" class="runButton" />
+            <input type="button" value="Reset" class="resetButton" />
+            <input type="button" value="Hexdump" class="hexdumpButton" />
+            <input type="button" value="Disassemble" class="disassembleButton" />
+          </div>
+        </fieldset>
       </div>
       <div class="col-auto"">
         <div class="debugger">
@@ -41,17 +43,22 @@
     </div>
     <div class="row">
       <div class="col-auto">
-        <h5>Message Log:</h5>
-        <div class="messages"><pre><code>Press Assemble button to build program</code></pre></div>
-        <h5>Memory Monitor:</h5>
-        <label>Start: $</label>
-        <input class="start" value="0000"/>
-        <label>End: $</label>
-        <input class="length" value="05ff"/>
-        <div class="monitor"><pre><code></code></pre></div>
+        <fieldset>
+          <legend>Message Log</legend>
+          <div class="messages"><pre><code>Press Assemble button to build program</code></pre></div>
+        </fieldset>
+        <fieldset>
+          <legend>Memory Monitor</legend>
+          <label>Start: $</label>
+          <input class="start" value="0000"/>
+          <label>End: $</label>
+          <input class="length" value="05ff"/>
+          <div class="monitor"><pre><code></code></pre></div>
+        </fieldset>
       </div>
       <div class="col">
-          Notes:
+        <fieldset>
+          <legend>Notes</legend>
 <pre><code>Memory location $fe contains a new random byte on every instruction.
 Memory location $ff contains the ascii code of the last key pressed.
 
@@ -84,6 +91,7 @@ draw different color pixels. The colors are:</code></pre>
           </tr>
         </table>
         <a href="https://github.com/KennethWilke/6502js" target="_blank">Source code for this page available on GitHub.</a> Based on <a href="http://skilldrick.github.io/easy6502/" target="_blank">Easy 6502</a>
+        </fieldset>
       </div>
     </div>
   </div>
